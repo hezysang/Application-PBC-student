@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-4">
+    <div class="card card-user">
+      <div class="image">
+      </div>
+      <div class="card-body">
+        <div class="author">
+            <img class="avatar border-gray" src="assets/img/loginImg.jpeg" alt="...">
+          <p class="description">
+            {{Email}}
+          </p>
+          <button type="button" class="btn btn-primary" (click)="open(mymodal)">Edit<i class="fa fa-pencil pl-2" aria-hidden="true"></i></button>
+          <ng-template #mymodal let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Update your Profile</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="service.formModel" (submit)="onSubmit()" autocomplete="off" >
+                <div class="form-group">
+                  <label for="fName">First Name</label>
+                  <input type="text" class="form-control" id="fName" formControlName="FirstName" [(ngModel)]="service.profile.FirstName">
+                </div>
+              <div class="form-group">
+                <label for="lName">Last Name</label>
+                <input type="text" class="form-control" id="lName" formControlName="LastName" [(ngModel)]="service.profile.LastName">
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email" formControlName="Email" [(ngModel)]="service.profile.EmailAddress">
+              </div>
+                <div class="container">
+                  <br>
+                  <button type="submit" class="btn btn-primary float-right">Update</button>
+                </div>
+              </form>
+            </div>
+          </ng-template>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<div class="body-container p-5">
+  <div class="register-container pt-5">
+    <div class="row">
+      <div class="card pt-5">
+        <div class="brand-logo pt-5">
+          <img src="assets/img/loginImg.jpeg" alt="logo">
+        </div>
+        <h3 class="container p-2 text-center">
+          Register Here
+        </h3>
+        <hr>
+        <form [formGroup]="serviceRegister.formModel" (submit)="onSubmit()" autocomplete="off" >
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="fName">First Name</label>
+              <input formControlName="FirstName" id="fName" type="text" class="form-control">
+              <div *ngIf="f.FirstName.touched && f.FirstName.invalid" class=" text-danger">
+                <div *ngIf="f.FirstName.errors?.required">First Name is required.</div>
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="password">Last Name</label>
+              <input formControlName="LastName" id="lastName" type="text" class="form-control">
+              <div *ngIf="f.LastName.touched && f.LastName.invalid" class=" text-danger">
+                <div *ngIf="f.LastName.errors?.required">Last Name is required.</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="mobile">Phone Number</label>
+              <input formControlName="MobileNo" id="mobile" type="text" class="form-control">
+              <div *ngIf="f.MobileNo.touched && f.MobileNo.invalid" class=" text-danger">
+                <div *ngIf="f.MobileNo.errors?.required">Mobile No is required.</div>
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="EmailAddress">Email</label>
+              <input formControlName="EmailAddress" id="EmailAddress" type="email" class="form-control">
+              <div *ngIf="f.EmailAddress.touched && f.EmailAddress.invalid" class="text-danger">
+                <div *ngIf="f.EmailAddress.errors?.required">Email is required.</div>
+                Invalid Email Address
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="password">Password</label>
+              <input formControlName="Password" id="password" type="Password" class="form-control">
+              <div *ngIf="f.Password.touched && f.Password.invalid" class="text-danger">
+                <div *ngIf="f.Password.errors?.required">Password is required.</div>
+                Input 8 Character Password
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="confirm-password">Confirm Password</label>
+              <input formControlName="ConfirmPassword" id="confirm-Password" type="password" class="form-control">
+              <div *ngIf="f.ConfirmPassword.touched && f.ConfirmPassword.invalid" class="text-danger">
+                <div *ngIf="f.ConfirmPassword.errors?.required">Password is required.</div>
+                <div *ngIf="f.ConfirmPassword?.errors?.confirmedValidator">Password and Confirm Password must be match.</div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row m-12">
+            <div class="col-6">
+              <button type="submit" class="btn btn-primary btn-md "[disabled]="!serviceRegister.formModel.valid">Register</button>
+            </div>
+            <div class="col-6 ">
+              <a href="student/login" >
+                Login If Registered
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,245 @@
+<div class="col-md-12">
+  <div class="card card-user">
+    <div class="card-body">
+      <form [formGroup]="service.formModel" (submit)="onSubmit()" autocomplete="off" >
+        <div class="form-horizontal col-md-12">
+          <div class="card-header">
+            <h5 class="card-title text-center">Make application</h5>
+          </div>
+          <hr />
+          <div class="container">
+          <div class="card-deck">
+            <div class="card col-md-6 p-3 bg-light">
+              <div class="card-header m-4 text-center font-weight-bold bg-white">
+                Student Details
+              </div>
+              <div class="row">
+                <div class="col-sm-2 col-md-5 jumbotron p-1 m-2  bg-white font-weight-bold">
+                  <div class="form-group">
+                    <label for="FirstName">First Name:</label>
+                    <input formControlName="FirstName" id="FirstName" type="text" class="form-control">
+                    <div *ngIf="f.FirstName.touched && f.FirstName.invalid" class=" text-danger">
+                      <div *ngIf="f.FirstName.errors?.required">First Name is required.</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="MiddleName">Middle Name:</label>
+                    <input formControlName="MiddleName" id="MiddleName" type="text" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="LastName">Last Name:</label>
+                    <input formControlName="LastName" id="LastName" type="text" class="form-control">
+                    <div *ngIf="f.LastName.touched && f.LastName.invalid" class=" text-danger">
+                      <div *ngIf="f.LastName.errors?.required">Last Name is required.</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="LastName">Date Of Birth:</label>
+                    <input type="date" class="form-control" id="DateOfBirth"  formControlName="DateOfBirth" required>
+                    <div *ngIf="f.DateOfBirth.touched && f.DateOfBirth.invalid" class=" text-danger">
+                      <div *ngIf="f.DateOfBirth.errors?.required">Date is required.</div>
+                    </div>          </div>
+                  <div class="form-group" required>
+                    <label for="Gender">Select Gender:</label>
+                    <select class="form-control" id="Gender" formControlName="Gender">
+                      <option value="undefined" [selected]=true>Select Gender</option>
+                      <option>Male</option>
+                      <option>Female</option>
+                    </select>
+                    <div *ngIf="f.Gender.touched && f.Gender.invalid" class=" text-danger">
+                      <div *ngIf="f.Gender.errors?.required">Gender is required.</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="county">Select County:</label>
+                    <select formControlName="Code"   class="form-control" (change)="BindSubCounty($any($event.target).value)" id="county">
+                      <option value="undefined" [selected]=true>Select County Name</option>
+                      <option *ngFor="let county of service.listCounty" [value]="county.Code">
+                        {{county.Name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-2 col-md-5 jumbotron p-1 m-2 bg-white font-weight-bold">
+                  <div class="form-group">
+                    <label for="SubCounty">Sub County:</label>
+                    <select formControlName="Sub_County_Code"  class="form-control" >
+                      <option value="undefined" [selected]=true>Select Sub_County Name</option>
+                      <option *ngFor="let subCounty of service.listSubCounty" [value]="subCounty.Sub_County_Name" id="SubCounty">
+                        {{subCounty.Sub_County_Name}}
+                      </option>
+
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="Class">Select Class:</label>
+                    <select class="form-control" id="Class" formControlName="Class">
+                      <option value="undefined" [selected]=true >Select Class </option>
+                      <option>Grade 1</option>
+                      <option>Grade 2</option>
+                      <option>Grade 3</option>
+                      <option>Grade 4</option>
+                      <option>Class 5</option>
+                      <option>Class 6</option>
+                      <option>Class 7</option>
+                      <option>Class 8</option>
+                    </select>
+                    <div *ngIf="f.Class.touched && f.Class.invalid" class=" text-danger">
+                      <div *ngIf="f.Class.errors?.required">Class is required.</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="Term">Select Term:</label>
+                    <select class="form-control" id="Term" formControlName="Term">
+                      <option value="undefined" [selected]=true>Select Term</option>
+                      <option>Term 1</option>
+                      <option>Term 2</option>
+                      <option>Term 3</option>
+                    </select>
+                    <div *ngIf="f.Term.touched && f.Term.invalid" class=" text-danger">
+                      <div *ngIf="f.Term.errors?.required">Term is required.</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="NemisNo">Nemis Number:</label>
+                    <input type="text" class="form-control" id="NemisNo"  formControlName="NemisNo" required>
+                    <div *ngIf="f.NemisNo.touched && f.NemisNo.invalid" class=" text-danger">
+                      <div *ngIf="f.NemisNo.errors?.required">Nemis Number is required.</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="AcademicYear">AcademicYear:</label>
+                    <select formControlName="AcademicYear" class="form-control" id="AcademicYear">
+                      <option value="undefined" [selected]=true>Select Academic Year</option>
+                      <option *ngFor="let res of service.results">{{res.YearCode}}</option>
+                    </select>
+                    <div *ngIf="f.AcademicYear.touched && f.AcademicYear.invalid" class=" text-danger">
+                      <div *ngIf="f.AcademicYear.errors?.required">Academic Year is required.</div>
+                    </div>
+                    <div class="form-group">
+                      <input type="hidden" formControlName="ApplicationNo" [(ngModel)]="ApplicationNo">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <div class="card col-md-6 p-3 bg-light">
+              <div class="card-header m-4 text-center font-weight-bold bg-white">
+                Family Details
+              </div>
+              <div class="row">
+                <div class="col-sm-2 col-md-5 jumbotron p-1 m-2 bg-white font-weight-bold">
+                  <div class="form-group ">
+                    <label for="Names">Full Names:</label>
+                    <input type="text" class="form-control" id="Names"  formControlName="Names" [(ngModel)]="service.profile.Names" disabled="disabled">
+                    <div *ngIf="f.Names.touched && f.Names.invalid" class=" text-danger">
+                      <div *ngIf="f.Names.errors?.required">Full Names required.</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="Term">Select Type</label>
+                    <select class="form-control" id="Type" formControlName="Type">
+                      <option value="undefined" [selected]=true>Select Type</option>
+                      <option>Father</option>
+                      <option>Mother</option>
+                      <option>Sibling</option>
+                    </select>
+                    <div *ngIf="f.Type.touched && f.Type.invalid" class=" text-danger">
+                      <div *ngIf="f.Type.errors?.required">Select Relationship.</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="Occupation">Occupation:</label>
+                    <input type="text" class="form-control text-line" id="Occupation"  formControlName="Occupation" required>
+                    <div *ngIf="f.Occupation.touched && f.Occupation.invalid" class=" text-danger">
+                      <div *ngIf="f.Occupation.errors?.required">Occupation is required.</div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="MobileNo">Mobile Number:</label>
+                    <input type="text" class="form-control" id="MobileNo"  formControlName="MobileNo" required>
+                    <div *ngIf="f.MobileNo.touched && f.MobileNo.invalid" class=" text-danger">
+                      <div *ngIf="f.MobileNo.errors?.required">EmployeeNo is required.</div>
+                      Please, Enter 10 digit Mobile Number.
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="companyName">Company Name:</label>
+                    <input type="text" class="form-control" id="CompanyName"  formControlName="CompanyName" required>
+                    <div *ngIf="f.CompanyName.touched && f.CompanyName.invalid" class=" text-danger">
+                      <div *ngIf="f.CompanyName.errors?.required">Company Name is required.</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="companyAddress">Company Address:</label>
+                    <input type="text" class="form-control" id="CompanyAddress"  formControlName="CompanyAddress" required>
+                    <div *ngIf="f.CompanyAddress.touched && f.CompanyAddress.invalid" class=" text-danger">
+                      <div *ngIf="f.CompanyName.errors?.required">Company Address is required.</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-2 col-md-5  jumbotron p-1 m-2 bg-white font-weight-bold">
+                  <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="text" class="form-control" id="Email"  formControlName="Email" [(ngModel)]="service.profile.EmailAddress" disabled="disabled">
+                    <div *ngIf="f.Email.touched && f.Email.invalid" class=" text-danger">
+                      <div *ngIf="f.Email.errors?.required">Email is required.</div>
+                      <div *ngIf="f.Email.errors?.invalid">Email is invalid</div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="companyTelNo">Company Tel Number:</label>
+                    <input type="text" class="form-control" id="companyTelNo"  formControlName="CompanyTelNo" required>
+                    <div *ngIf="f.CompanyTelNo.touched && f.CompanyTelNo.invalid" class=" text-danger">
+                      <div *ngIf="f.CompanyTelNo.errors?.required">Company TelNo required.</div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="residentialAddress">Residential Address:</label>
+                    <input type="text" class="form-control" id="residentialAddress"  formControlName="ResidentialAddress" required>
+                    <div *ngIf="f.ResidentialAddress.touched && f.ResidentialAddress.invalid" class=" text-danger">
+                      <div *ngIf="f.ResidentialAddress.errors?.required">Residential Address required .</div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="apartmentNo">Apartment Number:</label>
+                    <input type="text" class="form-control" id="apartmentNo"  formControlName="ApartmentNo" required>
+                    <div *ngIf="f.ApartmentNo.touched && f.ApartmentNo.invalid" class=" text-danger">
+                      <div *ngIf="f.ApartmentNo.errors?.required">Apartment Number is required.</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="houseNo">House Number:</label>
+                    <input type="text" class="form-control" id="houseNo"  formControlName="HouseNo" required>
+                    <div *ngIf="f.HouseNo.touched && f.HouseNo.invalid" class=" text-danger">
+                      <div *ngIf="f.HouseNo.errors?.required">House Number is required</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="Address">Address:</label>
+                    <input formControlName="Address" id="Address" type="text" class="form-control">
+                    <div *ngIf="f.Address.touched && f.Address.invalid" class=" text-danger">
+                      <div *ngIf="f.Address.errors?.required">Address is required.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <br>
+              <button type="submit" class="btn btn-primary float-right" [disabled]="!service.formModel.valid">Submit</button>
+            </div>
+          </div>
+            <hr />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

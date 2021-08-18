@@ -1,0 +1,10 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~bs-stepper/dist/css/bs-stepper.min.css';
+
+
+.bs-stepper-header{
+  /*box-shadow: rgba(0, 0, 0, 0.3) 5px 5px 5px;*/
+  background-color: #F0F8FF;
+  border-radius: 5px;
+
+}

@@ -1,0 +1,203 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+<!--        <h4 class="card-title"> Student Info</h4>-->
+        <div class="row">
+          <div class="col">
+            Student Info
+          </div>
+          <div class="col">
+            <button  type="button" class="btn btn-primary float-right"><i class="fa fa-plus pr-2" aria-hidden="true"></i>Make New Application</button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+            <th>Application NO</th><th>First Name</th><th>Last Name</th><th>Class</th>
+            <th>Nemis Number</th><th>Term</th><th>Status</th><th>Reg Number</th><th>Actions</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let s of service.student">
+              <td>{{s.ApplicationNo}}</td>
+              <td>{{s.FirstName}}</td>
+              <td>{{s.LastName}}</td>
+              <td>{{s.Class}}</td>
+              <td>{{s.NemisNo}}</td>
+              <td>{{s.Term}}</td>
+              <td>{{s.Status}}</td>
+              <td>{{s.StudentNo}}</td>
+              <td>
+                <button type="button" class="btn btn-primary" (click)="open(mymodal,s)">Edit<i class="fa fa-pencil pl-2" aria-hidden="true"></i></button>
+
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="row">
+            <div class="col-md-8">
+              <ng-template #mymodal let-modal>
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">Edit Student's Details</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form [formGroup]="service.formModel" (submit)="onSubmit()" autocomplete="off" >
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group col-sm-12">
+                              <label for="first_name">First Name*</label>
+                              <input  formControlName="FirstName" [(ngModel)]="student.FirstName" id="first_name" type="text" class="form-control">                            </div><!--form-group-->
+                          </div><!--col-->
+                        </div><!--row-->
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group col-sm-12">
+                              <label for="middle_name">Middle Name</label>:
+                              <input class="form-control" type="text" formControlName="MiddleName" [(ngModel)]="student.MiddleName"id="middle_name"  maxlength="191" >
+                            </div><!--form-group-->
+                          </div><!--col-->
+                        </div><!--row-->
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group col-sm-12">
+                              <label for="last_name">Last Name*</label>:
+                              <input class="form-control" type="text" formControlName="LastName" [(ngModel)]="student.LastName" id="last_name"  maxlength="191"  >
+
+                            </div><!--form-group-->
+                          </div><!--col-->
+                        </div><!--row-->
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group col-sm-12">
+                              <label for="last_name">Email</label>:
+                              <input class="form-control" type="email" formControlName="Email" id="email" maxlength="191" >
+
+                            </div><!--form-group-->
+                          </div><!--col-->
+                        </div><!--row-->
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group col-sm-12">
+                              <label for="datepicker">Date of Birth*</label>:
+                              <input class="form-control" type="date" formControlName="DateOfBirth" [(ngModel)]="Dob" id="datepicker" value data-toggle="datetimepicker" data-target="#datepicker" >
+
+                            </div><!--form-group-->
+                          </div><!--col-->
+                        </div><!--row-->
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group col-sm-12">
+                              <label for="gender">Gender*</label>:
+                              <select class="form-control" id="Gender" formControlName="Gender" [(ngModel)]="student.Gender">
+                                <option [value]="student.Gender">{{student.Gender}}</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                              </select>
+                            </div><!--form-group-->
+                          </div><!--col-->
+                        </div><!--row-->
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group col-sm-12">
+                              <label for="county">County*</label>:
+                              <select formControlName="Code"  [(ngModel)]="student.County.Code"  class="form-control" (change)="BindSubCounty($any($event.target).value)" id="county">-->
+                                <option [value]="student.County.Code" [selected]=true>{{student.County.Name}}</option>
+                                <option *ngFor="let county of service.listCounty" [value]="county.Code">
+                                  {{county.Name}}
+                                </option>
+                              </select>
+                            </div><!--form-group-->
+                          </div><!--col-->
+                        </div><!--row-->
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group col-sm-12">
+                              <label for="sub_county">Sub-County*</label>:
+                              <select formControlName="Sub_County_Code"  class="form-control" id="sub_county">-->
+                                <option [value]="student.Sub_County_Code"[selected]=true>{{student.Sub_County_Code}}</option>
+                                <option *ngFor="let subCounty of service.listSubCounty" [value]="subCounty.Sub_County_Name" id="SubCounty">
+                                  {{subCounty.Sub_County_Name}}
+                                </option>
+                              </select>
+                            </div><!--form-group-->
+                          </div><!--col-->
+                        </div><!--row-->
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group col-sm-12">
+                              <label for="cur_class">Select Class:</label>
+                              <select class="form-control" id="cur_class" formControlName="Class" [(ngModel)]="student.Class">
+                                <option [value]="student.Class" [selected]=true>{{student.Class}}</option>
+                                <option>GRADE 1</option>
+                                <option>GRADE 2</option>
+                                <option>GRADE 3</option>
+                                <option>GRADE 4</option>
+                                <option>GRADE 5</option>
+                                <option>CLASS 6</option>
+                                <option>CLASS 7</option>
+                                <option>CLASS 8</option>
+                              </select>
+                            </div><!--form-group-->
+                          </div><!--col-->
+                        </div><!--row-->
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group col-sm-12">
+                              <label for="term">Term</label>:
+                              <select class="form-control" id="term" formControlName="Term" [(ngModel)]="student.Term">
+                                <option [value]="student.Term" [selected]=true>{{student.Term}}</option>
+                                <option>TERM 1</option>
+                                <option>TERM 2</option>
+                                <option>TERM 3</option>
+                              </select>
+                            </div><!--form-group-->
+                          </div><!--col-->
+                        </div><!--row-->
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group col-sm-12">
+                              <label for="nemis">Nemis Number</label>:
+                              <input class="form-control" type="text" formControlName="NemisNo" id="nemis" [(ngModel)]="student.NemisNo">
+                            </div><!--form-group-->
+                          </div><!--col-->
+                        </div><!--row-->
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group col-sm-12">
+                              <label for="academic_year">Academic Year</label>:
+                              <select formControlName="AcademicYear" class="form-control" id="academic_year">-->
+                                <option [value]="student.AcademicYear" [selected]=true>{{student.AcademicYear}}</option>
+                                <option *ngFor="let res of service.results">{{res.YearCode}}</option>
+                              </select>
+                            </div><!--form-group-->
+                          </div><!--col-->
+                        </div><!--row-->
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group col-sm-12 mb-0 clearfix">
+                          <hr>
+                          <button class="btn btn-primary pull-right" type="submit"><i class="fas fa-save"></i> Save</button>
+                        </div><!--form-group-->
+                      </div><!--col-->
+                    </div><!--row-->
+                  </form>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

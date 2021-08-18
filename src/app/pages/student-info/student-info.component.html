@@ -1,0 +1,183 @@
+<hr>
+<div class="container">
+  <div class="card">
+    <div class="row justify-content-center align-items-center">
+      <div class="col col-sm-12 align-self-center">
+        <form class="form-horizontal" [formGroup]="studentService.formModel" (submit)="onSubmit()" autocomplete="off"  >
+          <p>(Fields marked * are required)</p>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col">
+                  <div class="form-group col-sm-12">
+                    <label for="first_name">First Name*</label>
+                    <input type="text" id="first_name" formControlName="FirstName" class="form-control" maxlength="191">
+                    <div *ngIf="f.FirstName.touched && f.FirstName.invalid" class=" text-danger">
+                      <div *ngIf="f.FirstName.errors?.required">First Name is required.</div>
+                    </div>
+                  </div><!--form-group-->
+                </div><!--col-->
+              </div><!--row-->
+              <div class="row">
+                <div class="col">
+                  <div class="form-group col-sm-12">
+                    <label for="middle_name">Middle Name</label>:
+                    <input class="form-control" type="text" formControlName="MiddleName" id="middle_name"  maxlength="191" >
+                  </div><!--form-group-->
+                </div><!--col-->
+              </div><!--row-->
+              <div class="row">
+                <div class="col">
+                  <div class="form-group col-sm-12">
+                    <label for="last_name">Last Name*</label>:
+                    <input class="form-control" type="text" formControlName="LastName" id="last_name"  maxlength="191"  >
+                    <div *ngIf="f.LastName.touched && f.LastName.invalid" class=" text-danger">
+                      <div *ngIf="f.LastName.errors?.required">Last Name is required.</div>
+                    </div>
+                  </div><!--form-group-->
+                </div><!--col-->
+              </div><!--row-->
+              <div class="row">
+                <div class="col">
+                  <div class="form-group col-sm-12">
+                    <label for="last_name">Email</label>:
+                    <input class="form-control" type="email" formControlName="Email" id="email" maxlength="191" >
+                    <div *ngIf="f.DateOfBirth.touched && f.Email.invalid" class=" text-danger">
+                    </div>
+                  </div><!--form-group-->
+                </div><!--col-->
+              </div><!--row-->
+              <div class="row">
+                <div class="col">
+                  <div class="form-group col-sm-12">
+                    <label for="datepicker">Date of Birth*</label>:
+                    <input class="form-control" type="date" formControlName="DateOfBirth" id="datepicker" value data-toggle="datetimepicker" data-target="#datepicker" >
+                    <div *ngIf="f.DateOfBirth.touched && f.DateOfBirth.invalid" class=" text-danger">
+                      <div *ngIf="f.DateOfBirth.errors?.required">Date is required.</div>
+                    </div>
+                  </div><!--form-group-->
+                </div><!--col-->
+              </div><!--row-->
+              <div class="row">
+                <div class="col">
+                  <div class="form-group col-sm-12">
+                    <label for="gender">Gender*</label>:
+                    <select class="form-control" id="Gender" formControlName="Gender">
+                      <option value="undefined" [selected]=true>Select Gender</option>
+                      <option>Male</option>
+                      <option>Female</option>
+                    </select>
+                  </div><!--form-group-->
+                </div><!--col-->
+              </div><!--row-->
+              <div class="row">
+                <div class="col">
+                  <div class="form-group col-sm-12" hidden>
+                    <input class="form-control" type="text" formControlName="ApplicationNo" [(ngModel)]="ApplicationNo" id="application_no">
+                  </div><!--form-group-->
+                </div><!--col-->
+              </div><!--row-->
+            </div>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col">
+                  <div class="form-group col-sm-12">
+                    <label for="county">County*</label>:
+                    <select formControlName="Code"   class="form-control" (change)="BindSubCounty($any($event.target).value)" id="county">
+                      <option value="undefined" [selected]=true>Select County Name</option>
+                      <option *ngFor="let county of studentService.listCounty" [value]="county.Code">
+                        {{county.Name}}
+                      </option>
+                    </select>
+                  </div><!--form-group-->
+                </div><!--col-->
+              </div><!--row-->
+              <div class="row">
+                <div class="col">
+                  <div class="form-group col-sm-12">
+                    <label for="sub-county">Sub-County*</label>:
+                    <select formControlName="Sub_County_Code"  class="form-control" >
+                      <option value="undefined" [selected]=true>Select Sub_County Name</option>
+                      <option *ngFor="let subCounty of studentService.listSubCounty" [value]="subCounty.Sub_County_Name" id="sub-county">
+                        {{subCounty.Sub_County_Name}}
+                      </option>
+                    </select>
+                  </div><!--form-group-->
+                </div><!--col-->
+              </div><!--row-->
+              <div class="row">
+                <div class="col">
+                  <div class="form-group col-sm-12">
+                    <label for="cur_class">Select Class:</label>
+                    <select class="form-control" id="cur_class" formControlName="Class">
+                      <option value="undefined" [selected]=true >Select Class </option>
+                      <option>Grade 1</option>
+                      <option>Grade 2</option>
+                      <option>Grade 3</option>
+                      <option>Grade 4</option>
+                      <option>Class 5</option>
+                      <option>Class 6</option>
+                      <option>Class 7</option>
+                      <option>Class 8</option>
+                    </select>
+                    <div *ngIf="f.Class.touched && f.Class.invalid" class=" text-danger">
+                      <div *ngIf="f.Class.errors?.required">Class is required.</div>
+                    </div>
+                  </div><!--form-group-->
+                </div><!--col-->
+              </div><!--row-->
+              <div class="row">
+                <div class="col">
+                  <div class="form-group col-sm-12">
+                    <label for="term">Term</label>:
+                    <select class="form-control" id="term" formControlName="Term">
+                      <option value="undefined" [selected]=true>Select Term</option>
+                      <option>Term 1</option>
+                      <option>Term 2</option>
+                      <option>Term 3</option>
+                    </select>
+                    <div *ngIf="f.Term.touched && f.Term.invalid" class=" text-danger">
+                      <div *ngIf="f.Term.errors?.required">Term is required.</div>
+                    </div>                  </div><!--form-group-->
+                </div><!--col-->
+              </div><!--row-->
+              <div class="row">
+                <div class="col">
+                  <div class="form-group col-sm-12">
+                    <label for="nemis">Nemis Number</label>:
+                    <input class="form-control" type="text" formControlName="NemisNo" id="nemis" maxlength="14">
+                    <div *ngIf="f.NemisNo.touched && f.NemisNo.invalid" class=" text-danger">
+                      <div *ngIf="f.NemisNo.errors?.required">Nemis Number is required.</div>
+                    </div>
+                  </div><!--form-group-->
+                </div><!--col-->
+              </div><!--row-->
+              <div class="row">
+                <div class="col">
+                  <div class="form-group col-sm-12">
+                    <label for="academic_year">Academic Year</label>:
+                    <select formControlName="AcademicYear" class="form-control" id="academic_year">
+                      <option value="undefined" [selected]=true>Select Academic Year</option>
+                      <option *ngFor="let res of studentService.results">{{res.YearCode}}</option>
+                    </select>
+                    <div *ngIf="f.AcademicYear.touched && f.AcademicYear.invalid" class=" text-danger">
+                      <div *ngIf="f.AcademicYear.errors?.required">Academic Year is required.</div>
+                    </div>                  </div><!--form-group-->
+                </div><!--col-->
+              </div><!--row-->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group col-sm-12 mb-0 clearfix">
+                <hr>
+                <button class="btn btn-primary pull-right" type="submit"><i class="fas fa-save"></i> Save and Continue</button>
+<!--                <a [routerLink]="['/addFamily']" class="btn btn-outline-primary">Next <i class="fas fa-caret-right"></i></a>-->
+              </div><!--form-group-->
+            </div><!--col-->
+          </div><!--row-->
+        </form>
+      </div><!--card body-->
+    </div><!-- card -->
+  </div><!-- col-xs-12 -->
+</div><!-- row -->

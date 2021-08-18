@@ -1,0 +1,198 @@
+<div class="container">
+  <div class="card">
+    <div class="row justify-content-center align-items-center m-4">
+      <div class="col col-sm-12 align-self-center">
+        <button type="button" class="btn btn-primary pull-left" (click)="open(mymodal)" >Add Family <i class="fa fa-plus pl-2" aria-hidden="true"></i></button>
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+            <th>Application No</th><th> Names</th><th>Type</th><th>Email</th><th>Address</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let s of familyService.familyList">
+              <td>{{s.ApplicationNo}}</td>
+              <td>{{s.Names}}</td>
+              <td>{{s.Type}}</td>
+              <td>{{s.Email}}</td>
+              <td>{{s.Address}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <div>
+            <button class="btn btn-primary pull-right" (click)="onTabClick(2)"><i class="fas fa-save"></i>Next</button>
+          </div>
+        </div>
+
+      </div><!--card body-->
+    </div><!-- card -->
+  </div><!-- col-xs-12 -->
+</div>
+        <ng-template #mymodal let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Add Family Details</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" [formGroup]="familyService.formModel" (submit)="onSubmit()" autocomplete="off"  >
+              <p>(Fields marked * are required)</p>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group col-sm-12">
+                        <label for="names">Full Name</label>
+                        <input type="text" class="form-control" id="names"  formControlName="Names">
+                        <div *ngIf="f.Names.touched && f.Names.invalid" class=" text-danger">
+                          <div *ngIf="f.Names.errors?.required">Full Names required.</div>
+                        </div>                  </div><!--form-group-->
+                    </div><!--col-->
+                  </div><!--row-->
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group col-sm-12">
+                        <label for="type">Relationship Type*</label>:
+                        <label for="Type"></label><select class="form-control" id="Type" formControlName="Type">
+                          <option value="undefined" [selected]=true>Select Type</option>
+                          <option>Father</option>
+                          <option>Mother</option>
+                          <option>Sibling</option>
+                          <option>Guardian</option>
+                        </select>
+                        <div *ngIf="f.Type.touched && f.Type.invalid" class=" text-danger">
+                          <div *ngIf="f.Type.errors?.required">Select Relationship.</div>
+                        </div>                  </div><!--form-group-->
+                    </div><!--col-->
+                  </div><!--row-->
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group col-sm-12">
+                        <label for="occupation">Occupation*</label>:
+                        <input class="form-control" type="text" formControlName="Occupation" id="occupation"  maxlength="191">
+                        <div *ngIf="f.Occupation.touched && f.Occupation.invalid" class=" text-danger">
+                          <div *ngIf="f.Occupation.errors?.required">Occupation is required.</div>
+                        </div>
+                      </div><!--form-group-->
+                    </div><!--col-->
+                  </div><!--row-->
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group col-sm-12">
+                        <label for="phone">MobileNo</label>:
+                        <input class="form-control" type="text" formControlName="MobileNo" id="phone" >
+                        <div *ngIf="f.MobileNo.touched && f.MobileNo.invalid" class=" text-danger">
+                          <div *ngIf="f.MobileNo.errors?.required" >Mobile no is required.</div>
+                          Please, Enter 10 digit Mobile Number.
+                        </div>
+                      </div><!--form-group-->
+                    </div><!--col-->
+                  </div><!--row-->
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group col-sm-12">
+                        <label for="company_name">Company Name</label>:
+                        <input class="form-control" type="text" formControlName="CompanyName" id="company_name" >
+                        <div *ngIf="f.CompanyName.touched && f.CompanyName.invalid" class=" text-danger">
+                          <div *ngIf="f.CompanyName.errors?.required">Company Name is required.</div>
+                        </div>
+                      </div><!--form-group-->
+                    </div><!--col-->
+                  </div><!--row-->
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group col-sm-12">
+                        <label for="company_address">Company Address</label>:
+                        <input class="form-control" type="text" formControlName="CompanyAddress" id="company_address"  >
+                        <div *ngIf="f.CompanyAddress.touched && f.CompanyAddress.invalid" class=" text-danger">
+                          <div *ngIf="f.CompanyName.errors?.required">Company Address is required.</div>
+                        </div>
+                      </div><!--form-group-->
+                    </div><!--col-->
+                  </div><!--row-->
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group col-sm-12" hidden>
+                        <label for="application_no"></label><input class="form-control" type="text" formControlName="ApplicationNo" [(ngModel)]="ApplicationNo" id="application_no">
+                      </div><!--form-group-->
+                    </div><!--col-->
+                  </div><!--row-->
+                </div>
+                <div class="col-sm-6">
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group col-sm-12">
+                        <label for="email">Email Address*</label>:
+                        <input class="form-control" type="email" formControlName="Email" id="email" >
+                        <div *ngIf="f.Email.touched && f.Email.invalid" class=" text-danger">
+                          <div *ngIf="f.Email.errors?.required">Email is required.</div>
+                          <div *ngIf="f.Email.errors?.invalid">Email is invalid</div>
+                        </div>
+                      </div><!--form-group-->
+                    </div><!--col-->
+                  </div><!--row-->
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group col-sm-12">
+                        <label for="company_tel">Company Tel No</label>:
+                        <input class="form-control" type="text" formControlName="CompanyTelNo" id="company_tel">
+                        <div *ngIf="f.CompanyTelNo.touched && f.CompanyTelNo.invalid" class=" text-danger">
+                          <div *ngIf="f.CompanyTelNo.errors?.required">Company TelNo required.</div>
+                        </div>
+                      </div><!--form-group-->
+                    </div><!--col-->
+                  </div><!--row-->
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group col-sm-12">
+                        <label for="residentialAddress">Residential Address</label>:
+                        <input class="form-control" type="text" formControlName="ResidentialAddress" id="residentialAddress">
+                        <div *ngIf="f.ResidentialAddress.touched && f.ResidentialAddress.invalid" class=" text-danger">
+                          <div *ngIf="f.ResidentialAddress.errors?.required">Residential Address required .</div>
+                        </div>
+                      </div><!--form-group-->
+                    </div><!--col-->
+                  </div><!--row-->
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group col-sm-12">
+                        <label for="apartmentNo">Apartment No</label>:
+                        <input class="form-control" type="text" formControlName="ApartmentNo" id="apartmentNo">
+                        <div *ngIf="f.ApartmentNo.touched && f.ApartmentNo.invalid" class=" text-danger">
+                          <div *ngIf="f.ApartmentNo.errors?.required">Apartment Number is required.</div>
+                        </div>
+                      </div><!--form-group-->
+                    </div><!--col-->
+                  </div><!--row-->
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group col-sm-12">
+                        <label for="houseNo">House No</label>:
+                        <input class="form-control" type="text" formControlName="HouseNo" id="houseNo">
+                        <div *ngIf="f.HouseNo.touched && f.HouseNo.invalid" class=" text-danger">
+                          <div *ngIf="f.HouseNo.errors?.required">House Number is required</div>
+                        </div>
+                      </div><!--form-group-->
+                    </div><!--col-->
+                  </div><!--row-->
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group col-sm-12">
+                        <label for="address">Address</label>:
+                        <input class="form-control" type="text" formControlName="Address" id="address" maxlength="14">
+                      </div><!--form-group-->
+                    </div><!--col-->
+                  </div><!--row-->
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-group col-sm-12 mb-0 clearfix">
+                    <hr>
+                    <button class="btn btn-primary pull-right"><i class="fas fa-save"></i>Save </button>
+                  </div><!--form-group-->
+                </div><!--col-->
+              </div><!--row-->
+            </form>
+          </div>
+        </ng-template>
